@@ -1,0 +1,44 @@
+apiVersion: v1  # The version of the Kubernetes API you're using
+kind: Pod # Type of resource created (Pod, Deployment, Service...)
+metadata:  # Metadata about the resource (name, labels, etc.)
+  name: api-pod          # The name of your pod
+  namespace: prod         # The namespace your pod is in
+  labels:                # Labels are key-value pairs used for organizing and selecting resources
+    app: api            # Example label: app=api
+    version: 0.1.0      # Example label: version=0.1.0
+spec:  # The actual specification of what you want to create
+  containers:           # List of containers in the pod
+  - name: api           # Name of the container
+    image: api:0.1.0    # Docker image to use
+    ports:              # Ports to expose
+    - containerPort: 8000  # Port the container listens on
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: api-pod
+  namespace: qualif
+  labels:
+    app: api
+    version: 0.2.0
+spec:
+  containers:
+  - name: api
+    image: api:0.2.0
+    ports:
+    - containerPort: 8000
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: api-pod
+  namespace: dev
+  labels:
+    app: api
+    version: 0.3.0
+spec:
+  containers:
+  - name: api
+    image: api:0.3.0
+    ports:
+    - containerPort: 8000
