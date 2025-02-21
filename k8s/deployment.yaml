@@ -1,9 +1,9 @@
 apiVersion: apps/v1 
 kind: Deployment
 metadata:
-  name: api-deploy
+  name: api-deploy-server
 spec:
-  replicas: 10
+  replicas: 3
   selector:
     matchLabels:
       app: api
@@ -19,7 +19,33 @@ spec:
         app: api
     spec:
       containers:
-      - name: api-pod
-        image: api:0.1.0
+      - name: mlops-server
+        image: mlops-server:0.2.0
         ports:
         - containerPort: 8000
+---
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: api-deploy-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: streamlit
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: streamlit
+    spec:
+      containers:
+      - name: mlops-client
+        image: mlops-client
+        ports:
+        - containerPort: 8501

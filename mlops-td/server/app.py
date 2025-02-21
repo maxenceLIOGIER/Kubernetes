@@ -53,3 +53,8 @@ def predict(item: Item):
         print("Error during prediction:", e)
         print(traceback.format_exc())
         return JSONResponse(status_code=500, content={"message": str(e)})
+
+ 
+@app.get("/version")
+async def version():
+    return {"version": "0.3.0"}

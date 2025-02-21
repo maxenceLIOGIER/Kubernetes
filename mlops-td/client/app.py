@@ -2,7 +2,7 @@ import requests
 import streamlit as st
 
 # URL de l'API serveur
-SERVER_URL = "http://server:8000/predict"
+SERVER_URL = "http://api-svc:8000"
 
 # Interface Streamlit pour l'entrée des données
 st.title("Prédiction de la fleur Iris")
